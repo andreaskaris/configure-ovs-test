@@ -1,0 +1,26 @@
+---
+interfaces:
+  - name: {{ backdoor_interface }}
+    type: ethernet
+    description: backdoor-interface
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: false
+      auto-gateway: false
+    ipv6:
+      enabled: false
+  - name: {{ primary_interface }}
+    type: ethernet
+    description: primare-interface
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: true
+      auto-gateway: true
+  - name: {{ secondary_interface }}
+    type: ethernet
+    description: secondary-interface
+    state: absent

@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: True
+  tasks:
+    - ansible.builtin.template:
+        src: "{{ item }}"
+        dest: ../rendered/{{ item | basename | regex_replace('\.j2$', '') }}
+      with_fileglob:
+        - ../templates/*.j2

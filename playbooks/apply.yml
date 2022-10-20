@@ -1,0 +1,7 @@
+---
+- import_playbook: render.yml
+- hosts: all
+  become: True
+  tasks:
+    - ansible.builtin.command:
+        cmd: nmstatectl apply ../rendered/{{ mode }}.yml

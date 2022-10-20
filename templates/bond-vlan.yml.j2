@@ -1,0 +1,30 @@
+---
+interfaces:
+  - name: {{ backdoor_interface }}
+    type: ethernet
+    description: backdoor-interface
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: false
+      auto-gateway: false
+    ipv6:
+      enabled: false
+  - name: bond0
+    type: bond
+    state: up
+    link-aggregation:
+      mode: active-backup
+      port:
+      - {{ primary_interface }}
+      - {{ secondary_interface }}
+  - name: bond0.10
+    type: vlan
+    state: up
+    vlan:
+      base-iface: bond0
+      id: 10
+    ipv4:
+      enabled: true
+      dhcp: true

@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: True
+  tasks:
+    - ansible.builtin.set_fact:
+        configure_ovs: "{{ lookup('file', configure_ovs_path) | from_yaml }}"
+    - ansible.builtin.copy:
+        dest: "{{ configure_ovs.path }}"
+        content: "{{ configure_ovs.contents.inline }}"
