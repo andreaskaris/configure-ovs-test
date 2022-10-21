@@ -1,0 +1,34 @@
+---
+interfaces:
+  - name: {{ backdoor_interface }}
+    type: ethernet
+    description: backdoor-interface
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: false
+      auto-gateway: false
+    ipv6:
+      enabled: false
+  - name: {{ primary_interface }}
+    type: ethernet
+    description: primare-interface
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: false
+      auto-dns: false
+      auto-gateway: false
+      address:
+      - ip: 192.168.140.200
+        prefix-length: 24
+  - name: {{ secondary_interface }}
+    type: ethernet
+    description: secondary-interface
+    state: absent
+routes:
+  config:
+    - destination: 0.0.0.0/0
+      next-hop-interface: eth1
+      next-hop-address: 192.168.140.254

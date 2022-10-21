@@ -1,0 +1,9 @@
+[Unit]
+Description=Configure this server's DHCP and RA
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/net-config.sh
+
+[Install]
+WantedBy=multi-user.target

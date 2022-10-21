@@ -1,9 +1,35 @@
 ---
 - hosts: all
   become: True
+  gather_facts: no
   tasks:
-    - ansible.builtin.set_fact:
+    - name: "Read {{ configure_ovs_path }}"
+      ansible.builtin.set_fact:
         configure_ovs: "{{ lookup('file', configure_ovs_path) | from_yaml }}"
-    - ansible.builtin.copy:
+    - name: "Write {{ configure_ovs.path }}"
+      ansible.builtin.copy:
         dest: "{{ configure_ovs.path }}"
         content: "{{ configure_ovs.contents.inline }}"
+        mode: 0755
+    - name: "Delete /var/run/ovs-config-executed"
+      ansible.builtin.file:
+        dest: /var/run/ovs-config-executed
+        state: absent
+    - name: "Delete /var/run/configure-ovs-boot-done"
+      ansible.builtin.file:
+        dest: /var/run/configure-ovs-boot-done
+        state: absent
+    - name: "Delete /var/lib/ovnk/iface_default_hint"
+      ansible.builtin.file:
+        dest: /var/lib/ovnk/iface_default_hint
+        state: absent
+    - name: "Delete /run/nodeip-configuration/primary-ip"
+      ansible.builtin.file:
+        dest: /run/nodeip-configuration/primary-ip
+        state: absent
+    - name: "Run {{ configure_ovs.path }} OVNKubernetes"
+      ansible.builtin.shell:
+        cmd: "{{ configure_ovs.path }} OVNKubernetes 2>&1"
+      register: out
+    - ansible.builtin.debug:
+        var: out.stdout_lines
