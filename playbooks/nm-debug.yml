@@ -1,0 +1,10 @@
+---
+- hosts: all
+  gather_facts: no
+  become: True
+  tasks:
+    - ansible.builtin.copy:
+        content: |
+          [logging]
+          domains=ALL:DEBUG
+        dest: /etc/NetworkManager/conf.d/95-nm-debug.conf

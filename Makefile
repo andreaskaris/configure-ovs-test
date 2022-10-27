@@ -4,6 +4,9 @@ deps: ## Install dependencies.
 .PHONY: configure-ovs
 configure-ovs:          ## Import configure-ovs script and run it.
 	ansible-playbook playbooks/configure-ovs.yml --extra-vars="mode=$@"
+.PHONY: nm-debug
+nm-debug:          ## Configure NM debugging
+	ansible-playbook playbooks/nm-debug.yml
 .PHONY: reset
 reset:          ## Reset interface configuration. 
 	ansible-playbook playbooks/apply.yml --extra-vars="mode=$@"
