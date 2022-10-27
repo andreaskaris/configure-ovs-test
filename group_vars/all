@@ -2,5 +2,6 @@
 backdoor_interface: eth0
 primary_interface: eth1
 secondary_interface: eth2
+additional_network_interface: eth3
 invalid_interface: ens1f0
 configure_ovs_path: /root/development/machine-config-operator/templates/common/_base/files/configure-ovs-network.yaml

@@ -19,6 +19,9 @@ single-ipv6: reset          ## Deploy a single interface configuration for IPv6.
 .PHONY: single-ipv6-static
 single-ipv6-static: reset          ## Deploy a single interface configuration for IPv6, static.
 	ansible-playbook playbooks/apply.yml --extra-vars="mode=$@"
+.PHONY: single-additional-network
+single-additional-network: reset          ## Deploy a single interface configuration with an additional network.
+	ansible-playbook playbooks/apply.yml --extra-vars="mode=$@"
 .PHONY: bond
 bond: reset          ## Deploy a configuration with a bond.
 	ansible-playbook playbooks/apply.yml --extra-vars="mode=$@"

@@ -14,7 +14,12 @@ interfaces:
   - name: {{ primary_interface }}
     type: ethernet
     description: primare-interface
-    state: absent
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: true
+      auto-gateway: true
   - name: {{ secondary_interface }}
     type: ethernet
     description: secondary-interface
@@ -22,20 +27,9 @@ interfaces:
   - name: {{ additional_network_interface }}
     type: ethernet
     description: additional-network-interface
-    state: absent
-  - name: bond0
-    state: absent
-  - name: bond0-port0
-    state: absent
-  - name: bond0-port1
-    state: absent
-  - name: bond0.10
-    state: absent
-  - name: ovs-if-br-ex
-    state: absent
-  - name: br-ex
-    state: absent
-    type: ovs-interface
-  - name: br-ex
-    state: absent
-    type: ovs-bridge
+    state: up
+    ipv4:
+      enabled: true
+      dhcp: true
+      auto-dns: true
+      auto-gateway: true
